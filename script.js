@@ -67,5 +67,8 @@ function calculate(v1,v2,operator){
     }else console.log("ERROR!");
 
     lastOperatorPressed = false;
+    val1 = result;
+    i++;
+    val2 = 0;
     display.innerHTML = result;
 }
