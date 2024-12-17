@@ -4,23 +4,37 @@ function getVal(butt){
     displayVal(value);
 }
 
-let lastOperatorPressed = false;
-let val1 = 1, val2, result = 0, counter = 0, numValue = 0;
+let lastOperatorPressed = false, opPressed;
+let val1 = 0, val2 = 0, result = 0, counter = 0, numValue = 0, i = 1, j = 1;
+
 function displayVal(value){
     const display = document.querySelector('.showCalc');
 
     if (['+', '-', '*', '/', '='].includes(value)) {
-        
+        if(value == '=') lastOperatorPressed = false;
         if (lastOperatorPressed) {
-            // display.innerHTML = 
+            console.log(value + " pressed more than one time");
+            return; 
         }
 
         else{
             display.innerHTML += value;
             lastOperatorPressed = true;
+            if(j == 1) {
+                operator = value;
+                j++;
+            }
+            else{
+                opPressed=value;
+                j==1;
+            } 
             counter = 0;
-            val1 = 1;
-            result = 0;  
+            result = 0;
+            i++;
+            if(opPressed == '=') {
+                console.log("Before calculating the results: " +val1+ " " + val2+ " " + operator);
+                calculate(val1, val2, operator);
+            }
         }
 
     }
@@ -28,9 +42,30 @@ function displayVal(value){
     else{
         display.innerHTML += value;
         let numValue = parseInt(value);
-        val1 = (Math.pow(10, counter));
-        result += val1*numValue;
-        counter++; 
-        console.log(value + " " + result);
+        if(i==1){
+            val1 = val1 * 10 + numValue;
+        }else{
+            val2 = val2 * 10 + numValue;
+            
+        } 
+        console.log(value + " Value 1 is: " + val1 + " Value 2 is: " + val2);
+
     }
+}
+
+
+function calculate(v1,v2,operator){
+    const display = document.querySelector('.showCalc');
+    if(operator == '+'){
+        result  = v1 + v2;
+    }else if (operator == '-'){
+        result = v1 - v2;
+    }else if(operator == '/'){
+        result = v1 / v2;
+    }else if(operator == '*'){
+        result = v1 * v2;
+    }else console.log("ERROR!");
+
+    lastOperatorPressed = false;
+    display.innerHTML = result;
 }
